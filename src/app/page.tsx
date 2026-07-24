@@ -8,7 +8,7 @@ import { HeroBanner } from "~/_components/HeroBanner";
 
 export default function HomePage() {
   return (
-    <main className="bg-background flex min-h-screen flex-col">
+    <main className="--background flex min-h-screen flex-col">
       <Navbar />
       <HeroBanner />
       <Footer />
