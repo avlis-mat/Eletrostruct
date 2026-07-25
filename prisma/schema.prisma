@@ -4,14 +4,71 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-  url      = env("DATABASE_URL")
+}
+
+
+model Usuario {
+  id        Int     @id @default(autoincrement())       
+  nome      String
+  endereco  String
+  cpf       String
+  email     String  @unique
+  senha     String
+
+  // 1:N (Um usuário pode ter vários pedidos)
+  pedidos   Pedido[]
+}
+
+model Pedido {
+  id        Int     @id @default(autoincrement())
+  criadoEm  DateTime @default(now())
+
+  // Liga com usuario
+  usuario_id Int 
+  usuario Usuario   @relation(fields: [usuario_id], references: [id])
+
+  // 1:N (Um pedido pode ter vários itens)
+  itens   ItemPedido[]
+}
+
+
+// É uma tabela pivot porém precisamos escrever para pegar informações importantes como preço de quando a compra foi feita
+model ItemPedido {
+  id          Int     @id @default(autoincrement())
+  quantidade  Int
+  precoFixo   Float
+
+  // Liga com pedido 
+  pedido_id   Int 
+  pedido Pedido       @relation(fields: [pedido_id], references: [id])
+
+  // Liga com produto
+  produto_id  Int 
+  produto Produto     @relation(fields: [produto_id], references: [id])
+
+
+}
+
+model Categoria {
+  id        Int     @id @default(autoincrement())
+  nome      String
+
+  // N:N  (Uma Categoria pode ter N Produtos e um Produto pode pertencer a N Categorias)
+  produtos  Produto[]
 }
 
 model Produto {
-  id        String   @id @default(cuid())
+  id        Int     @id @default(autoincrement())
   nome      String
-  descricao String?
+  descricao String
   preco     Float
   imagemUrl String?
   criadoEm  DateTime @default(now())
+
+  // Prisma cria a tabela pivot por baixo dos panos
+  categorias  Categoria[]
+
+  // 1:N  (Um produto pode aparecer em vários itens de pedidos diferentes)
+  itensPedido ItemPedido[]
 }
+
