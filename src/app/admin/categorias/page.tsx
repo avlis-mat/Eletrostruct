@@ -2,7 +2,6 @@
 "use client";
 
 import { useState } from "react";
-import { Navbar } from "~/_components/Navbar";
 import { api } from "~/trpc/react";
 
 export default function CategoriasPage() {
@@ -42,7 +41,6 @@ export default function CategoriasPage() {
 
   return (
     <main className="mx-auto max-w-2xl px-4 py-16">
-      <Navbar />
       <h1 className="text-foreground mb-6 text-2xl font-bold">Categorias</h1>
 
       {erro && (

@@ -1,8 +1,12 @@
 import Link from "next/link";
 import { ThemeToggle } from "./ThemeToggle";
-import { Search, User, UserPlus, ShoppingCart } from "lucide-react";
+import { Search, User, UserPlus, ShoppingCart, LogOut } from "lucide-react";
+import { auth, signOut } from "~/server/auth";
+import { SignOutAction } from "~/server/actions/auth-actions";
 
-export function Navbar() {
+export async function Navbar() {
+  const session = await auth();
+
   return (
     <header className="border-border/40 bg-background/85 sticky top-2 z-50 w-full border-b backdrop-blur">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -31,6 +35,13 @@ export function Navbar() {
           >
             Sobre
           </Link>
+
+          <Link
+            href="/pedidos"
+            className="text-muted-foreground hover:text-primary text-sm font-medium transition-colors"
+          >
+            Meus Pedidos
+          </Link>
         </nav>
 
         {/*Icones*/}
@@ -41,21 +52,45 @@ export function Navbar() {
             <Search className="text-muted-foreground hover:text-primary h-5 w-5 transition-colors" />
           </button>
 
-          <Link
-            href="/login"
-            aria-label="Login"
-            className="text-muted-foreground hover:text-primary transition-colors"
-          >
-            <User className="h-5 w-5" />
-          </Link>
+          {session ? (
+            <>
+              <Link
+                href="/pedidos"
+                aria-label="Meus pedidos"
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
+                <User className="h-5 w-5" />
+              </Link>
 
-          <Link
-            href="/cadastro"
-            aria-label="Criar conta"
-            className="text-muted-foreground hover:text-primary transition-colors"
-          >
-            <UserPlus className="h-5 w-5" />
-          </Link>
+              <form action={SignOutAction}>
+                <button
+                  type="submit"
+                  aria-label="Sair"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
+                  <LogOut className="h-5 w-5" />
+                </button>
+              </form>
+            </>
+          ) : (
+            <>
+              <Link
+                href="/login"
+                aria-label="Login"
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
+                <User className="h-5 w-5" />
+              </Link>
+
+              <Link
+                href="/cadastro"
+                aria-label="Criar conta"
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
+                <UserPlus className="h-5 w-5" />
+              </Link>
+            </>
+          )}
 
           <Link
             href="/carrinho"
