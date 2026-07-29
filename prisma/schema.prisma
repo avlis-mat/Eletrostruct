@@ -63,6 +63,8 @@ model User {
     emailVerified DateTime?
     image         String?
     endereco      String?
+    cpf           String?
+    senha         String?
     accounts      Account[]
     sessions      Session[]
     posts         Post[]

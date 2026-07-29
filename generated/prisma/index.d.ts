@@ -5205,6 +5205,8 @@ export namespace Prisma {
     emailVerified: Date | null
     image: string | null
     endereco: string | null
+    cpf: string | null
+    senha: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -5214,6 +5216,8 @@ export namespace Prisma {
     emailVerified: Date | null
     image: string | null
     endereco: string | null
+    cpf: string | null
+    senha: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -5223,6 +5227,8 @@ export namespace Prisma {
     emailVerified: number
     image: number
     endereco: number
+    cpf: number
+    senha: number
     _all: number
   }
 
@@ -5234,6 +5240,8 @@ export namespace Prisma {
     emailVerified?: true
     image?: true
     endereco?: true
+    cpf?: true
+    senha?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -5243,6 +5251,8 @@ export namespace Prisma {
     emailVerified?: true
     image?: true
     endereco?: true
+    cpf?: true
+    senha?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -5252,6 +5262,8 @@ export namespace Prisma {
     emailVerified?: true
     image?: true
     endereco?: true
+    cpf?: true
+    senha?: true
     _all?: true
   }
 
@@ -5334,6 +5346,8 @@ export namespace Prisma {
     emailVerified: Date | null
     image: string | null
     endereco: string | null
+    cpf: string | null
+    senha: string | null
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -5360,6 +5374,8 @@ export namespace Prisma {
     emailVerified?: boolean
     image?: boolean
     endereco?: boolean
+    cpf?: boolean
+    senha?: boolean
     accounts?: boolean | User$accountsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     posts?: boolean | User$postsArgs<ExtArgs>
@@ -5375,6 +5391,8 @@ export namespace Prisma {
     emailVerified?: boolean
     image?: boolean
     endereco?: boolean
+    cpf?: boolean
+    senha?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -5384,6 +5402,8 @@ export namespace Prisma {
     emailVerified?: boolean
     image?: boolean
     endereco?: boolean
+    cpf?: boolean
+    senha?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -5393,9 +5413,11 @@ export namespace Prisma {
     emailVerified?: boolean
     image?: boolean
     endereco?: boolean
+    cpf?: boolean
+    senha?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "endereco", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "endereco" | "cpf" | "senha", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     accounts?: boolean | User$accountsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
@@ -5423,6 +5445,8 @@ export namespace Prisma {
       emailVerified: Date | null
       image: string | null
       endereco: string | null
+      cpf: string | null
+      senha: string | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -5857,6 +5881,8 @@ export namespace Prisma {
     readonly emailVerified: FieldRef<"User", 'DateTime'>
     readonly image: FieldRef<"User", 'String'>
     readonly endereco: FieldRef<"User", 'String'>
+    readonly cpf: FieldRef<"User", 'String'>
+    readonly senha: FieldRef<"User", 'String'>
   }
     
 
@@ -12957,7 +12983,9 @@ export namespace Prisma {
     email: 'email',
     emailVerified: 'emailVerified',
     image: 'image',
-    endereco: 'endereco'
+    endereco: 'endereco',
+    cpf: 'cpf',
+    senha: 'senha'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -13290,6 +13318,8 @@ export namespace Prisma {
     emailVerified?: DateTimeNullableFilter<"User"> | Date | string | null
     image?: StringNullableFilter<"User"> | string | null
     endereco?: StringNullableFilter<"User"> | string | null
+    cpf?: StringNullableFilter<"User"> | string | null
+    senha?: StringNullableFilter<"User"> | string | null
     accounts?: AccountListRelationFilter
     sessions?: SessionListRelationFilter
     posts?: PostListRelationFilter
@@ -13304,6 +13334,8 @@ export namespace Prisma {
     emailVerified?: SortOrderInput | SortOrder
     image?: SortOrderInput | SortOrder
     endereco?: SortOrderInput | SortOrder
+    cpf?: SortOrderInput | SortOrder
+    senha?: SortOrderInput | SortOrder
     accounts?: AccountOrderByRelationAggregateInput
     sessions?: SessionOrderByRelationAggregateInput
     posts?: PostOrderByRelationAggregateInput
@@ -13321,6 +13353,8 @@ export namespace Prisma {
     emailVerified?: DateTimeNullableFilter<"User"> | Date | string | null
     image?: StringNullableFilter<"User"> | string | null
     endereco?: StringNullableFilter<"User"> | string | null
+    cpf?: StringNullableFilter<"User"> | string | null
+    senha?: StringNullableFilter<"User"> | string | null
     accounts?: AccountListRelationFilter
     sessions?: SessionListRelationFilter
     posts?: PostListRelationFilter
@@ -13335,6 +13369,8 @@ export namespace Prisma {
     emailVerified?: SortOrderInput | SortOrder
     image?: SortOrderInput | SortOrder
     endereco?: SortOrderInput | SortOrder
+    cpf?: SortOrderInput | SortOrder
+    senha?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -13350,6 +13386,8 @@ export namespace Prisma {
     emailVerified?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     image?: StringNullableWithAggregatesFilter<"User"> | string | null
     endereco?: StringNullableWithAggregatesFilter<"User"> | string | null
+    cpf?: StringNullableWithAggregatesFilter<"User"> | string | null
+    senha?: StringNullableWithAggregatesFilter<"User"> | string | null
   }
 
   export type VerificationTokenWhereInput = {
@@ -13894,6 +13932,8 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     image?: string | null
     endereco?: string | null
+    cpf?: string | null
+    senha?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     posts?: PostCreateNestedManyWithoutCreatedByInput
@@ -13908,6 +13948,8 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     image?: string | null
     endereco?: string | null
+    cpf?: string | null
+    senha?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     posts?: PostUncheckedCreateNestedManyWithoutCreatedByInput
@@ -13922,6 +13964,8 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
+    cpf?: NullableStringFieldUpdateOperationsInput | string | null
+    senha?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     posts?: PostUpdateManyWithoutCreatedByNestedInput
@@ -13936,6 +13980,8 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
+    cpf?: NullableStringFieldUpdateOperationsInput | string | null
+    senha?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     posts?: PostUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -13950,6 +13996,8 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     image?: string | null
     endereco?: string | null
+    cpf?: string | null
+    senha?: string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -13959,6 +14007,8 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
+    cpf?: NullableStringFieldUpdateOperationsInput | string | null
+    senha?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -13968,6 +14018,8 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
+    cpf?: NullableStringFieldUpdateOperationsInput | string | null
+    senha?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type VerificationTokenCreateInput = {
@@ -14599,6 +14651,8 @@ export namespace Prisma {
     emailVerified?: SortOrder
     image?: SortOrder
     endereco?: SortOrder
+    cpf?: SortOrder
+    senha?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -14608,6 +14662,8 @@ export namespace Prisma {
     emailVerified?: SortOrder
     image?: SortOrder
     endereco?: SortOrder
+    cpf?: SortOrder
+    senha?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -14617,6 +14673,8 @@ export namespace Prisma {
     emailVerified?: SortOrder
     image?: SortOrder
     endereco?: SortOrder
+    cpf?: SortOrder
+    senha?: SortOrder
   }
 
   export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -15665,6 +15723,8 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     image?: string | null
     endereco?: string | null
+    cpf?: string | null
+    senha?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     pedidos?: PedidoCreateNestedManyWithoutUsuarioInput
@@ -15678,6 +15738,8 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     image?: string | null
     endereco?: string | null
+    cpf?: string | null
+    senha?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     pedidos?: PedidoUncheckedCreateNestedManyWithoutUsuarioInput
@@ -15707,6 +15769,8 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
+    cpf?: NullableStringFieldUpdateOperationsInput | string | null
+    senha?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     pedidos?: PedidoUpdateManyWithoutUsuarioNestedInput
@@ -15720,6 +15784,8 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
+    cpf?: NullableStringFieldUpdateOperationsInput | string | null
+    senha?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     pedidos?: PedidoUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -15733,6 +15799,8 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     image?: string | null
     endereco?: string | null
+    cpf?: string | null
+    senha?: string | null
     sessions?: SessionCreateNestedManyWithoutUserInput
     posts?: PostCreateNestedManyWithoutCreatedByInput
     pedidos?: PedidoCreateNestedManyWithoutUsuarioInput
@@ -15746,6 +15814,8 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     image?: string | null
     endereco?: string | null
+    cpf?: string | null
+    senha?: string | null
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     posts?: PostUncheckedCreateNestedManyWithoutCreatedByInput
     pedidos?: PedidoUncheckedCreateNestedManyWithoutUsuarioInput
@@ -15775,6 +15845,8 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
+    cpf?: NullableStringFieldUpdateOperationsInput | string | null
+    senha?: NullableStringFieldUpdateOperationsInput | string | null
     sessions?: SessionUpdateManyWithoutUserNestedInput
     posts?: PostUpdateManyWithoutCreatedByNestedInput
     pedidos?: PedidoUpdateManyWithoutUsuarioNestedInput
@@ -15788,6 +15860,8 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
+    cpf?: NullableStringFieldUpdateOperationsInput | string | null
+    senha?: NullableStringFieldUpdateOperationsInput | string | null
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     posts?: PostUncheckedUpdateManyWithoutCreatedByNestedInput
     pedidos?: PedidoUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -15801,6 +15875,8 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     image?: string | null
     endereco?: string | null
+    cpf?: string | null
+    senha?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
     posts?: PostCreateNestedManyWithoutCreatedByInput
     pedidos?: PedidoCreateNestedManyWithoutUsuarioInput
@@ -15814,6 +15890,8 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     image?: string | null
     endereco?: string | null
+    cpf?: string | null
+    senha?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     posts?: PostUncheckedCreateNestedManyWithoutCreatedByInput
     pedidos?: PedidoUncheckedCreateNestedManyWithoutUsuarioInput
@@ -15843,6 +15921,8 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
+    cpf?: NullableStringFieldUpdateOperationsInput | string | null
+    senha?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
     posts?: PostUpdateManyWithoutCreatedByNestedInput
     pedidos?: PedidoUpdateManyWithoutUsuarioNestedInput
@@ -15856,6 +15936,8 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
+    cpf?: NullableStringFieldUpdateOperationsInput | string | null
+    senha?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     posts?: PostUncheckedUpdateManyWithoutCreatedByNestedInput
     pedidos?: PedidoUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -16133,6 +16215,8 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     image?: string | null
     endereco?: string | null
+    cpf?: string | null
+    senha?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     posts?: PostCreateNestedManyWithoutCreatedByInput
@@ -16146,6 +16230,8 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     image?: string | null
     endereco?: string | null
+    cpf?: string | null
+    senha?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     posts?: PostUncheckedCreateNestedManyWithoutCreatedByInput
@@ -16197,6 +16283,8 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
+    cpf?: NullableStringFieldUpdateOperationsInput | string | null
+    senha?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     posts?: PostUpdateManyWithoutCreatedByNestedInput
@@ -16210,6 +16298,8 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
+    cpf?: NullableStringFieldUpdateOperationsInput | string | null
+    senha?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     posts?: PostUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -16346,6 +16436,8 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     image?: string | null
     endereco?: string | null
+    cpf?: string | null
+    senha?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     posts?: PostCreateNestedManyWithoutCreatedByInput
@@ -16359,6 +16451,8 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     image?: string | null
     endereco?: string | null
+    cpf?: string | null
+    senha?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     posts?: PostUncheckedCreateNestedManyWithoutCreatedByInput
@@ -16414,6 +16508,8 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
+    cpf?: NullableStringFieldUpdateOperationsInput | string | null
+    senha?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     posts?: PostUpdateManyWithoutCreatedByNestedInput
@@ -16427,6 +16523,8 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
+    cpf?: NullableStringFieldUpdateOperationsInput | string | null
+    senha?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     posts?: PostUncheckedUpdateManyWithoutCreatedByNestedInput
