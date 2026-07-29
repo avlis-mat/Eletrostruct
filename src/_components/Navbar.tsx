@@ -3,9 +3,13 @@ import { ThemeToggle } from "./ThemeToggle";
 import { Search, User, UserPlus, ShoppingCart, LogOut } from "lucide-react";
 import { auth, signOut } from "~/server/auth";
 import { SignOutAction } from "~/server/actions/auth-actions";
-
 export async function Navbar() {
   const session = await auth();
+  const headersModule = await import("next/headers");
+  const devUser = (await headersModule.cookies()).get("dev-user")?.value ?? null;
+  const displayName =
+    session?.user?.name ?? session?.user?.email?.split("@")[0] ?? devUser ?? "Usuário";
+  const isLogged = Boolean(session) || Boolean(devUser);
 
   return (
     <header className="border-border/40 bg-background/85 sticky top-2 z-50 w-full border-b backdrop-blur">
@@ -52,8 +56,17 @@ export async function Navbar() {
             <Search className="text-muted-foreground hover:text-primary h-5 w-5 transition-colors" />
           </button>
 
-          {session ? (
+          {isLogged ? (
             <>
+              <div className="hidden items-center gap-2 rounded-full border border-green-500/30 bg-green-500/10 px-3 py-1 sm:flex">
+                <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-green-600 dark:text-green-400">
+                  Logado
+                </span>
+                <span className="text-foreground text-sm font-medium">
+                  {displayName}
+                </span>
+              </div>
+
               <Link
                 href="/pedidos"
                 aria-label="Meus pedidos"
