@@ -36,12 +36,11 @@ declare module "next-auth" {
 export const authConfig = {
   secret: process.env.AUTH_SECRET,
   debug: true,
-  session: { strategy: "database" },
+  session: { strategy: "jwt" },
   providers: [
     DiscordProvider,
     GoogleProvider,
     Credentials({
-      name: "credentials",
       credentials: {
         email: { label: "Email", type: "email" },
         password: { label: "Senha", type: "password" },
@@ -68,12 +67,7 @@ export const authConfig = {
           return null;
         }
 
-        return {
-          id: user.id,
-          name: user.name ?? user.email ?? "Usuário",
-          email: user.email,
-          image: user.image,
-        };
+        return user;
       },
     }),
     /**
@@ -87,13 +81,17 @@ export const authConfig = {
      */
   ],
   adapter: PrismaAdapter(db),
+
   callbacks: {
-    session: ({ session, user }) => ({
+    jwt: ({ token, user }) => {
+      if (user) token.id = user.id;
+      return token;
+    },
+    session: ({ session, token }) => ({
       ...session,
       user: {
         ...session.user,
-        id: user.id,
-        name: session.user.name ?? user.name ?? "Usuário",
+        id: token.id as string,
       },
     }),
   },

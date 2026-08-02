@@ -1,9 +1,9 @@
-// src/app/login/page.tsx
 import { redirect } from "next/navigation";
 import { Navbar } from "~/_components/Navbar";
 import { Footer } from "~/_components/Footer";
 import { GoogleSignInButton } from "~/_components/GoogleSignInButton";
 import { auth } from "~/server/auth";
+import { credentialsSignInAction } from "~/server/actions/auth-actions";
 
 export default async function LoginPage() {
   const session = await auth();
@@ -24,7 +24,7 @@ export default async function LoginPage() {
             Acesse sua conta Eletrostruct
           </p>
 
-          <form action="/api/login" method="post" className="mb-6 space-y-3">
+          <form action={credentialsSignInAction} className="mb-6 space-y-3">
             <div className="flex flex-col gap-1">
               <label htmlFor="email" className="text-sm font-medium">
                 Email

@@ -1,34 +1,48 @@
 "use server";
 
-import { redirect } from "next/navigation";
-import { cookies } from "next/headers";
 import bcrypt from "bcryptjs";
+import { AuthError } from "next-auth";
 import { db } from "~/server/db";
+import { signIn, signOut } from "~/server/auth";
 
-export async function SignOutAction() {
-  cookies().set({ name: "dev-user", value: "", path: "/", maxAge: 0 });
-  redirect("/");
+export async function signOutAction() {
+  await signOut({ redirectTo: "/" });
 }
 
-export async function CredentialsSignInAction(formData: FormData) {
+export async function cadastrarAction(formData: FormData) {
+  const email = formData.get("email")?.toString().trim();
+  const password = formData.get("password")?.toString();
+  const nome = formData.get("nome")?.toString().trim();
+
+  if (!email || !password) {
+    throw new Error("Preencha e-mail e senha.");
+  }
+
+  const existente = await db.user.findUnique({ where: { email } });
+  if (existente) {
+    throw new Error("Já existe uma conta com esse e-mail.");
+  }
+
+  const senhaHash = await bcrypt.hash(password, 10);
+  await db.user.create({ data: { email, senha: senhaHash, name: nome } });
+
+  await signIn("credentials", { email, password, redirectTo: "/" });
+}
+
+export async function credentialsSignInAction(formData: FormData) {
   const email = formData.get("email")?.toString().trim();
   const password = formData.get("password")?.toString();
 
   if (!email || !password) {
-    throw new Error("Preencha email e senha.");
+    throw new Error("Preencha e-mail e senha.");
   }
 
-  const user = await db.user.findUnique({ where: { email } });
-  if (!user || !user.senha) throw new Error("Credenciais inválidas.");
-
-  const isValid = user.senha.startsWith("$2")
-    ? await bcrypt.compare(password, user.senha)
-    : user.senha === password;
-
-  if (!isValid) throw new Error("Credenciais inválidas.");
-
-  const display = user.name ?? user.email ?? "Usuário";
-  cookies().set({ name: "dev-user", value: display, path: "/" });
-
-  redirect("/");
+  try {
+    await signIn("credentials", { email, password, redirectTo: "/" });
+  } catch (error) {
+    if (error instanceof AuthError) {
+      throw new Error("Credenciais inválidas.");
+    }
+    throw error;
+  }
 }
