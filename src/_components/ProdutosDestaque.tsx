@@ -30,7 +30,9 @@ export async function ProdutosDestaque() {
               alt={produto.nome}
               className="h-40 w-full rounded object-cover"
             />
-            <h3 className="text-foreground font-medium">{produto.nome}</h3>
+            <Link href={`/produto/${produto.id}`}>
+              <h3 className="text-foreground font-medium">{produto.nome}</h3>
+            </Link>
             <p className="text-muted-foreground text-sm">
               R$ {produto.preco.toFixed(2)}
             </p>
