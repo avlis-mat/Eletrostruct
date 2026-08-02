@@ -18,7 +18,7 @@ declare module "next-auth" {
     user: {
       id: string;
       // ...other properties
-      // role: UserRole;
+      role: "USER" | "ADMIN";
     } & DefaultSession["user"];
   }
 
@@ -98,7 +98,10 @@ export const authConfig = {
 
   callbacks: {
     jwt: ({ token, user }) => {
-      if (user) token.id = user.id;
+      if (user) {
+        token.id = user.id;
+        token.role = (user as { role?: "USER" | "ADMIN" }).role ?? "USER";
+      }
       return token;
     },
     session: ({ session, token }) => ({
@@ -106,6 +109,7 @@ export const authConfig = {
       user: {
         ...session.user,
         id: token.id as string,
+        role: (token.role as "USER" | "ADMIN") ?? "USER",
       },
     }),
   },
