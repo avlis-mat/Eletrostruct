@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
-import bcrypt from "bcryptjs";
-import { db } from "~/server/db";
+import { verifyUserCredentials } from "~/server/auth/login";
+
+export async function GET(request: Request) {
+  return NextResponse.redirect(new URL("/login", request.url));
+}
 
 export async function POST(request: Request) {
   const formData = await request.formData();
@@ -8,23 +11,25 @@ export async function POST(request: Request) {
   const password = formData.get("password")?.toString();
 
   if (!email || !password) {
-    return NextResponse.redirect(new URL("/login", request.url));
+    const redirectUrl = new URL("/login", request.url);
+    redirectUrl.searchParams.set("error", "invalid");
+    return NextResponse.redirect(redirectUrl);
   }
 
-  const user = await db.user.findUnique({ where: { email } });
-  if (!user || !user.senha) {
-    return NextResponse.redirect(new URL("/login", request.url));
+  const authResult = await verifyUserCredentials(email, password);
+  const redirectUrl = new URL("/login", request.url);
+
+  if (authResult.status === "locked") {
+    redirectUrl.searchParams.set("error", "locked");
+    return NextResponse.redirect(redirectUrl);
   }
 
-  const isValid = user.senha.startsWith("$2")
-    ? await bcrypt.compare(password, user.senha)
-    : user.senha === password;
-
-  if (!isValid) {
-    return NextResponse.redirect(new URL("/login", request.url));
+  if (authResult.status !== "success") {
+    redirectUrl.searchParams.set("error", "invalid");
+    return NextResponse.redirect(redirectUrl);
   }
 
-  const display = user.name ?? user.email ?? "Usuário";
+  const display = authResult.user.name ?? authResult.user.email ?? "Usuário";
   const response = NextResponse.redirect(new URL("/", request.url));
   response.cookies.set({
     name: "dev-user",

@@ -65,6 +65,8 @@ model User {
     endereco      String?
     cpf           String?
     senha         String?
+    failedLoginAttempts Int     @default(0)
+    lockedUntil         DateTime?
     accounts      Account[]
     sessions      Session[]
     posts         Post[]

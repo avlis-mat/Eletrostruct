@@ -5194,8 +5194,18 @@ export namespace Prisma {
 
   export type AggregateUser = {
     _count: UserCountAggregateOutputType | null
+    _avg: UserAvgAggregateOutputType | null
+    _sum: UserSumAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
+  }
+
+  export type UserAvgAggregateOutputType = {
+    failedLoginAttempts: number | null
+  }
+
+  export type UserSumAggregateOutputType = {
+    failedLoginAttempts: number | null
   }
 
   export type UserMinAggregateOutputType = {
@@ -5207,6 +5217,8 @@ export namespace Prisma {
     endereco: string | null
     cpf: string | null
     senha: string | null
+    failedLoginAttempts: number | null
+    lockedUntil: Date | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -5218,6 +5230,8 @@ export namespace Prisma {
     endereco: string | null
     cpf: string | null
     senha: string | null
+    failedLoginAttempts: number | null
+    lockedUntil: Date | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -5229,9 +5243,19 @@ export namespace Prisma {
     endereco: number
     cpf: number
     senha: number
+    failedLoginAttempts: number
+    lockedUntil: number
     _all: number
   }
 
+
+  export type UserAvgAggregateInputType = {
+    failedLoginAttempts?: true
+  }
+
+  export type UserSumAggregateInputType = {
+    failedLoginAttempts?: true
+  }
 
   export type UserMinAggregateInputType = {
     id?: true
@@ -5242,6 +5266,8 @@ export namespace Prisma {
     endereco?: true
     cpf?: true
     senha?: true
+    failedLoginAttempts?: true
+    lockedUntil?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -5253,6 +5279,8 @@ export namespace Prisma {
     endereco?: true
     cpf?: true
     senha?: true
+    failedLoginAttempts?: true
+    lockedUntil?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -5264,6 +5292,8 @@ export namespace Prisma {
     endereco?: true
     cpf?: true
     senha?: true
+    failedLoginAttempts?: true
+    lockedUntil?: true
     _all?: true
   }
 
@@ -5305,6 +5335,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: UserAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UserSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: UserMinAggregateInputType
@@ -5335,6 +5377,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: UserCountAggregateInputType | true
+    _avg?: UserAvgAggregateInputType
+    _sum?: UserSumAggregateInputType
     _min?: UserMinAggregateInputType
     _max?: UserMaxAggregateInputType
   }
@@ -5348,7 +5392,11 @@ export namespace Prisma {
     endereco: string | null
     cpf: string | null
     senha: string | null
+    failedLoginAttempts: number
+    lockedUntil: Date | null
     _count: UserCountAggregateOutputType | null
+    _avg: UserAvgAggregateOutputType | null
+    _sum: UserSumAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
   }
@@ -5376,6 +5424,8 @@ export namespace Prisma {
     endereco?: boolean
     cpf?: boolean
     senha?: boolean
+    failedLoginAttempts?: boolean
+    lockedUntil?: boolean
     accounts?: boolean | User$accountsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     posts?: boolean | User$postsArgs<ExtArgs>
@@ -5393,6 +5443,8 @@ export namespace Prisma {
     endereco?: boolean
     cpf?: boolean
     senha?: boolean
+    failedLoginAttempts?: boolean
+    lockedUntil?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -5404,6 +5456,8 @@ export namespace Prisma {
     endereco?: boolean
     cpf?: boolean
     senha?: boolean
+    failedLoginAttempts?: boolean
+    lockedUntil?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -5415,9 +5469,11 @@ export namespace Prisma {
     endereco?: boolean
     cpf?: boolean
     senha?: boolean
+    failedLoginAttempts?: boolean
+    lockedUntil?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "endereco" | "cpf" | "senha", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "endereco" | "cpf" | "senha" | "failedLoginAttempts" | "lockedUntil", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     accounts?: boolean | User$accountsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
@@ -5447,6 +5503,8 @@ export namespace Prisma {
       endereco: string | null
       cpf: string | null
       senha: string | null
+      failedLoginAttempts: number
+      lockedUntil: Date | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -5883,6 +5941,8 @@ export namespace Prisma {
     readonly endereco: FieldRef<"User", 'String'>
     readonly cpf: FieldRef<"User", 'String'>
     readonly senha: FieldRef<"User", 'String'>
+    readonly failedLoginAttempts: FieldRef<"User", 'Int'>
+    readonly lockedUntil: FieldRef<"User", 'DateTime'>
   }
     
 
@@ -12985,7 +13045,9 @@ export namespace Prisma {
     image: 'image',
     endereco: 'endereco',
     cpf: 'cpf',
-    senha: 'senha'
+    senha: 'senha',
+    failedLoginAttempts: 'failedLoginAttempts',
+    lockedUntil: 'lockedUntil'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -13320,6 +13382,8 @@ export namespace Prisma {
     endereco?: StringNullableFilter<"User"> | string | null
     cpf?: StringNullableFilter<"User"> | string | null
     senha?: StringNullableFilter<"User"> | string | null
+    failedLoginAttempts?: IntFilter<"User"> | number
+    lockedUntil?: DateTimeNullableFilter<"User"> | Date | string | null
     accounts?: AccountListRelationFilter
     sessions?: SessionListRelationFilter
     posts?: PostListRelationFilter
@@ -13336,6 +13400,8 @@ export namespace Prisma {
     endereco?: SortOrderInput | SortOrder
     cpf?: SortOrderInput | SortOrder
     senha?: SortOrderInput | SortOrder
+    failedLoginAttempts?: SortOrder
+    lockedUntil?: SortOrderInput | SortOrder
     accounts?: AccountOrderByRelationAggregateInput
     sessions?: SessionOrderByRelationAggregateInput
     posts?: PostOrderByRelationAggregateInput
@@ -13355,6 +13421,8 @@ export namespace Prisma {
     endereco?: StringNullableFilter<"User"> | string | null
     cpf?: StringNullableFilter<"User"> | string | null
     senha?: StringNullableFilter<"User"> | string | null
+    failedLoginAttempts?: IntFilter<"User"> | number
+    lockedUntil?: DateTimeNullableFilter<"User"> | Date | string | null
     accounts?: AccountListRelationFilter
     sessions?: SessionListRelationFilter
     posts?: PostListRelationFilter
@@ -13371,9 +13439,13 @@ export namespace Prisma {
     endereco?: SortOrderInput | SortOrder
     cpf?: SortOrderInput | SortOrder
     senha?: SortOrderInput | SortOrder
+    failedLoginAttempts?: SortOrder
+    lockedUntil?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
+    _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
+    _sum?: UserSumOrderByAggregateInput
   }
 
   export type UserScalarWhereWithAggregatesInput = {
@@ -13388,6 +13460,8 @@ export namespace Prisma {
     endereco?: StringNullableWithAggregatesFilter<"User"> | string | null
     cpf?: StringNullableWithAggregatesFilter<"User"> | string | null
     senha?: StringNullableWithAggregatesFilter<"User"> | string | null
+    failedLoginAttempts?: IntWithAggregatesFilter<"User"> | number
+    lockedUntil?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   }
 
   export type VerificationTokenWhereInput = {
@@ -13934,6 +14008,8 @@ export namespace Prisma {
     endereco?: string | null
     cpf?: string | null
     senha?: string | null
+    failedLoginAttempts?: number
+    lockedUntil?: Date | string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     posts?: PostCreateNestedManyWithoutCreatedByInput
@@ -13950,6 +14026,8 @@ export namespace Prisma {
     endereco?: string | null
     cpf?: string | null
     senha?: string | null
+    failedLoginAttempts?: number
+    lockedUntil?: Date | string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     posts?: PostUncheckedCreateNestedManyWithoutCreatedByInput
@@ -13966,6 +14044,8 @@ export namespace Prisma {
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
     cpf?: NullableStringFieldUpdateOperationsInput | string | null
     senha?: NullableStringFieldUpdateOperationsInput | string | null
+    failedLoginAttempts?: IntFieldUpdateOperationsInput | number
+    lockedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     posts?: PostUpdateManyWithoutCreatedByNestedInput
@@ -13982,6 +14062,8 @@ export namespace Prisma {
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
     cpf?: NullableStringFieldUpdateOperationsInput | string | null
     senha?: NullableStringFieldUpdateOperationsInput | string | null
+    failedLoginAttempts?: IntFieldUpdateOperationsInput | number
+    lockedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     posts?: PostUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -13998,6 +14080,8 @@ export namespace Prisma {
     endereco?: string | null
     cpf?: string | null
     senha?: string | null
+    failedLoginAttempts?: number
+    lockedUntil?: Date | string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -14009,6 +14093,8 @@ export namespace Prisma {
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
     cpf?: NullableStringFieldUpdateOperationsInput | string | null
     senha?: NullableStringFieldUpdateOperationsInput | string | null
+    failedLoginAttempts?: IntFieldUpdateOperationsInput | number
+    lockedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -14020,6 +14106,8 @@ export namespace Prisma {
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
     cpf?: NullableStringFieldUpdateOperationsInput | string | null
     senha?: NullableStringFieldUpdateOperationsInput | string | null
+    failedLoginAttempts?: IntFieldUpdateOperationsInput | number
+    lockedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type VerificationTokenCreateInput = {
@@ -14653,6 +14741,12 @@ export namespace Prisma {
     endereco?: SortOrder
     cpf?: SortOrder
     senha?: SortOrder
+    failedLoginAttempts?: SortOrder
+    lockedUntil?: SortOrder
+  }
+
+  export type UserAvgOrderByAggregateInput = {
+    failedLoginAttempts?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -14664,6 +14758,8 @@ export namespace Prisma {
     endereco?: SortOrder
     cpf?: SortOrder
     senha?: SortOrder
+    failedLoginAttempts?: SortOrder
+    lockedUntil?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -14675,6 +14771,12 @@ export namespace Prisma {
     endereco?: SortOrder
     cpf?: SortOrder
     senha?: SortOrder
+    failedLoginAttempts?: SortOrder
+    lockedUntil?: SortOrder
+  }
+
+  export type UserSumOrderByAggregateInput = {
+    failedLoginAttempts?: SortOrder
   }
 
   export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -15725,6 +15827,8 @@ export namespace Prisma {
     endereco?: string | null
     cpf?: string | null
     senha?: string | null
+    failedLoginAttempts?: number
+    lockedUntil?: Date | string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     pedidos?: PedidoCreateNestedManyWithoutUsuarioInput
@@ -15740,6 +15844,8 @@ export namespace Prisma {
     endereco?: string | null
     cpf?: string | null
     senha?: string | null
+    failedLoginAttempts?: number
+    lockedUntil?: Date | string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     pedidos?: PedidoUncheckedCreateNestedManyWithoutUsuarioInput
@@ -15771,6 +15877,8 @@ export namespace Prisma {
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
     cpf?: NullableStringFieldUpdateOperationsInput | string | null
     senha?: NullableStringFieldUpdateOperationsInput | string | null
+    failedLoginAttempts?: IntFieldUpdateOperationsInput | number
+    lockedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     pedidos?: PedidoUpdateManyWithoutUsuarioNestedInput
@@ -15786,6 +15894,8 @@ export namespace Prisma {
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
     cpf?: NullableStringFieldUpdateOperationsInput | string | null
     senha?: NullableStringFieldUpdateOperationsInput | string | null
+    failedLoginAttempts?: IntFieldUpdateOperationsInput | number
+    lockedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     pedidos?: PedidoUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -15801,6 +15911,8 @@ export namespace Prisma {
     endereco?: string | null
     cpf?: string | null
     senha?: string | null
+    failedLoginAttempts?: number
+    lockedUntil?: Date | string | null
     sessions?: SessionCreateNestedManyWithoutUserInput
     posts?: PostCreateNestedManyWithoutCreatedByInput
     pedidos?: PedidoCreateNestedManyWithoutUsuarioInput
@@ -15816,6 +15928,8 @@ export namespace Prisma {
     endereco?: string | null
     cpf?: string | null
     senha?: string | null
+    failedLoginAttempts?: number
+    lockedUntil?: Date | string | null
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     posts?: PostUncheckedCreateNestedManyWithoutCreatedByInput
     pedidos?: PedidoUncheckedCreateNestedManyWithoutUsuarioInput
@@ -15847,6 +15961,8 @@ export namespace Prisma {
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
     cpf?: NullableStringFieldUpdateOperationsInput | string | null
     senha?: NullableStringFieldUpdateOperationsInput | string | null
+    failedLoginAttempts?: IntFieldUpdateOperationsInput | number
+    lockedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessions?: SessionUpdateManyWithoutUserNestedInput
     posts?: PostUpdateManyWithoutCreatedByNestedInput
     pedidos?: PedidoUpdateManyWithoutUsuarioNestedInput
@@ -15862,6 +15978,8 @@ export namespace Prisma {
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
     cpf?: NullableStringFieldUpdateOperationsInput | string | null
     senha?: NullableStringFieldUpdateOperationsInput | string | null
+    failedLoginAttempts?: IntFieldUpdateOperationsInput | number
+    lockedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     posts?: PostUncheckedUpdateManyWithoutCreatedByNestedInput
     pedidos?: PedidoUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -15877,6 +15995,8 @@ export namespace Prisma {
     endereco?: string | null
     cpf?: string | null
     senha?: string | null
+    failedLoginAttempts?: number
+    lockedUntil?: Date | string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
     posts?: PostCreateNestedManyWithoutCreatedByInput
     pedidos?: PedidoCreateNestedManyWithoutUsuarioInput
@@ -15892,6 +16012,8 @@ export namespace Prisma {
     endereco?: string | null
     cpf?: string | null
     senha?: string | null
+    failedLoginAttempts?: number
+    lockedUntil?: Date | string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     posts?: PostUncheckedCreateNestedManyWithoutCreatedByInput
     pedidos?: PedidoUncheckedCreateNestedManyWithoutUsuarioInput
@@ -15923,6 +16045,8 @@ export namespace Prisma {
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
     cpf?: NullableStringFieldUpdateOperationsInput | string | null
     senha?: NullableStringFieldUpdateOperationsInput | string | null
+    failedLoginAttempts?: IntFieldUpdateOperationsInput | number
+    lockedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
     posts?: PostUpdateManyWithoutCreatedByNestedInput
     pedidos?: PedidoUpdateManyWithoutUsuarioNestedInput
@@ -15938,6 +16062,8 @@ export namespace Prisma {
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
     cpf?: NullableStringFieldUpdateOperationsInput | string | null
     senha?: NullableStringFieldUpdateOperationsInput | string | null
+    failedLoginAttempts?: IntFieldUpdateOperationsInput | number
+    lockedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     posts?: PostUncheckedUpdateManyWithoutCreatedByNestedInput
     pedidos?: PedidoUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -16217,6 +16343,8 @@ export namespace Prisma {
     endereco?: string | null
     cpf?: string | null
     senha?: string | null
+    failedLoginAttempts?: number
+    lockedUntil?: Date | string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     posts?: PostCreateNestedManyWithoutCreatedByInput
@@ -16232,6 +16360,8 @@ export namespace Prisma {
     endereco?: string | null
     cpf?: string | null
     senha?: string | null
+    failedLoginAttempts?: number
+    lockedUntil?: Date | string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     posts?: PostUncheckedCreateNestedManyWithoutCreatedByInput
@@ -16285,6 +16415,8 @@ export namespace Prisma {
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
     cpf?: NullableStringFieldUpdateOperationsInput | string | null
     senha?: NullableStringFieldUpdateOperationsInput | string | null
+    failedLoginAttempts?: IntFieldUpdateOperationsInput | number
+    lockedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     posts?: PostUpdateManyWithoutCreatedByNestedInput
@@ -16300,6 +16432,8 @@ export namespace Prisma {
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
     cpf?: NullableStringFieldUpdateOperationsInput | string | null
     senha?: NullableStringFieldUpdateOperationsInput | string | null
+    failedLoginAttempts?: IntFieldUpdateOperationsInput | number
+    lockedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     posts?: PostUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -16438,6 +16572,8 @@ export namespace Prisma {
     endereco?: string | null
     cpf?: string | null
     senha?: string | null
+    failedLoginAttempts?: number
+    lockedUntil?: Date | string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     posts?: PostCreateNestedManyWithoutCreatedByInput
@@ -16453,6 +16589,8 @@ export namespace Prisma {
     endereco?: string | null
     cpf?: string | null
     senha?: string | null
+    failedLoginAttempts?: number
+    lockedUntil?: Date | string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     posts?: PostUncheckedCreateNestedManyWithoutCreatedByInput
@@ -16510,6 +16648,8 @@ export namespace Prisma {
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
     cpf?: NullableStringFieldUpdateOperationsInput | string | null
     senha?: NullableStringFieldUpdateOperationsInput | string | null
+    failedLoginAttempts?: IntFieldUpdateOperationsInput | number
+    lockedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     posts?: PostUpdateManyWithoutCreatedByNestedInput
@@ -16525,6 +16665,8 @@ export namespace Prisma {
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
     cpf?: NullableStringFieldUpdateOperationsInput | string | null
     senha?: NullableStringFieldUpdateOperationsInput | string | null
+    failedLoginAttempts?: IntFieldUpdateOperationsInput | number
+    lockedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     posts?: PostUncheckedUpdateManyWithoutCreatedByNestedInput

@@ -5,9 +5,21 @@ import { Footer } from "~/_components/Footer";
 import { GoogleSignInButton } from "~/_components/GoogleSignInButton";
 import { auth } from "~/server/auth";
 
-export default async function LoginPage() {
+export default async function LoginPage({
+  searchParams,
+}: {
+  searchParams?: Promise<{ error?: string }>;
+}) {
+  const params = await searchParams;
   const session = await auth();
   if (session) redirect("/");
+
+  const errorMessage =
+    params?.error === "locked"
+      ? "Conta bloqueada por 2 horas após 3 tentativas. Tente novamente mais tarde."
+      : params?.error === "invalid"
+      ? "Email ou senha inválidos."
+      : undefined;
 
   return (
     <main className="--background min-h-screen">
@@ -60,6 +72,12 @@ export default async function LoginPage() {
               Entrar
             </button>
           </form>
+
+          {errorMessage ? (
+            <p className="text-destructive mb-4 text-sm text-center">
+              {errorMessage}
+            </p>
+          ) : null}
 
           <div className="border-border/40 mb-4 border-t pt-4">
             <p className="text-muted-foreground mb-3 text-center text-sm">

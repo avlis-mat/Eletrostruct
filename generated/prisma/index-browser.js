@@ -157,7 +157,9 @@ exports.Prisma.UserScalarFieldEnum = {
   image: 'image',
   endereco: 'endereco',
   cpf: 'cpf',
-  senha: 'senha'
+  senha: 'senha',
+  failedLoginAttempts: 'failedLoginAttempts',
+  lockedUntil: 'lockedUntil'
 };
 
 exports.Prisma.VerificationTokenScalarFieldEnum = {

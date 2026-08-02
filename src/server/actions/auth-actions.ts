@@ -2,11 +2,11 @@
 
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
-import bcrypt from "bcryptjs";
-import { db } from "~/server/db";
+import { verifyUserCredentials } from "~/server/auth/login";
 
 export async function SignOutAction() {
-  cookies().set({ name: "dev-user", value: "", path: "/", maxAge: 0 });
+  const cookieStore = await cookies();
+  cookieStore.set({ name: "dev-user", value: "", path: "/", maxAge: 0 });
   redirect("/");
 }
 
@@ -18,17 +18,18 @@ export async function CredentialsSignInAction(formData: FormData) {
     throw new Error("Preencha email e senha.");
   }
 
-  const user = await db.user.findUnique({ where: { email } });
-  if (!user || !user.senha) throw new Error("Credenciais inválidas.");
+  const authResult = await verifyUserCredentials(email, password);
+  if (authResult.status === "locked") {
+    throw new Error("Conta bloqueada por 2 horas após 3 tentativas. Tente novamente mais tarde.");
+  }
 
-  const isValid = user.senha.startsWith("$2")
-    ? await bcrypt.compare(password, user.senha)
-    : user.senha === password;
+  if (authResult.status !== "success") {
+    throw new Error("Credenciais inválidas.");
+  }
 
-  if (!isValid) throw new Error("Credenciais inválidas.");
-
-  const display = user.name ?? user.email ?? "Usuário";
-  cookies().set({ name: "dev-user", value: display, path: "/" });
+  const display = authResult.user.name ?? authResult.user.email ?? "Usuário";
+  const cookieStore = await cookies();
+  cookieStore.set({ name: "dev-user", value: display, path: "/" });
 
   redirect("/");
 }

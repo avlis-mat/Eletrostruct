@@ -6,6 +6,7 @@ import DiscordProvider from "next-auth/providers/discord";
 import GoogleProvider from "next-auth/providers/google";
 
 import { db } from "~/server/db";
+import { verifyUserCredentials } from "~/server/auth/login";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -51,28 +52,21 @@ export const authConfig = {
           return null;
         }
 
-        const user = await db.user.findUnique({
-          where: { email: credentials.email as string },
-        });
-
-        if (!user?.senha) {
-          return null;
-        }
-
         const password = credentials.password as string;
-        const isValidPassword = user.senha.startsWith("$2")
-          ? await bcrypt.compare(password, user.senha)
-          : user.senha === password;
+        const authResult = await verifyUserCredentials(
+          credentials.email as string,
+          password,
+        );
 
-        if (!isValidPassword) {
+        if (authResult.status !== "success") {
           return null;
         }
 
         return {
-          id: user.id,
-          name: user.name ?? user.email ?? "Usuário",
-          email: user.email,
-          image: user.image,
+          id: authResult.user.id,
+          name: authResult.user.name ?? authResult.user.email ?? "Usuário",
+          email: authResult.user.email,
+          image: authResult.user.image,
         };
       },
     }),
