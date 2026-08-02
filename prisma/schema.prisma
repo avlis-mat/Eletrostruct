@@ -72,6 +72,7 @@ model User {
     posts           Post[]
     pedidos         Pedido[]
     itensCarrinho   ItemCarrinho[]
+    role            Role           @default(USER)
 }
 
 model VerificationToken {
@@ -139,4 +140,9 @@ model Produto {
 
     itensPedido   ItemPedido[]
     itensCarrinho ItemCarrinho[]
+}
+
+enum Role {
+    ADMIN
+    USER
 }

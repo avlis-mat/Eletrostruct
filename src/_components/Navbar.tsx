@@ -25,6 +25,14 @@ export async function Navbar() {
         </Link>
 
         {/*links de navegacao*/}
+        {session?.user.role === "ADMIN" && (
+          <Link
+            href="/admin"
+            className="text-muted-foreground hover:text-primary text-sm font-medium transition-colors"
+          >
+            Admin
+          </Link>
+        )}
         <nav className="hidden items-center gap-6 md:flex">
           <Link
             href="/catalogo"

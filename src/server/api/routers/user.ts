@@ -1,7 +1,11 @@
 import { TRPCError } from "@trpc/server";
 import bcrypt from "bcryptjs";
 import { z } from "zod";
-import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import {
+  adminProcedure,
+  createTRPCRouter,
+  publicProcedure,
+} from "~/server/api/trpc";
 export const userRouter = createTRPCRouter({
   criar: publicProcedure
     .input(
@@ -39,5 +43,40 @@ export const userRouter = createTRPCRouter({
         },
       });
       return new_user; // tipado de ponta a ponta
+    }),
+
+  listar: adminProcedure.query(({ ctx }) => {
+    return ctx.db.user.findMany({
+      orderBy: { email: "asc" },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+        bloqueado: true,
+        tentativasLogin: true,
+      },
+    });
+  }),
+
+  desbloquear: adminProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(({ ctx, input }) => {
+      return ctx.db.user.update({
+        where: { id: input.id },
+        data: { bloqueado: false, tentativasLogin: 0 },
+      });
+    }),
+
+  alternarAdmin: adminProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const usuario = await ctx.db.user.findUniqueOrThrow({
+        where: { id: input.id },
+      });
+      return ctx.db.user.update({
+        where: { id: input.id },
+        data: { role: usuario.role === "ADMIN" ? "USER" : "ADMIN" },
+      });
     }),
 });
