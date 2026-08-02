@@ -51,10 +51,16 @@ export async function Navbar() {
         {/*Icones*/}
         <div className="flex items-center gap-4">
           <ThemeToggle />
-
-          <button>
-            <Search className="text-muted-foreground hover:text-primary h-5 w-5 transition-colors" />
-          </button>
+          
+          <form action="/catalogo" method="get" className="flex items-center gap-2">
+            <Search className="h-5 w-5" />
+              <input
+              type="search"
+              name="q"
+              placeholder="Buscar produto..."
+              className="rounded border px-3 py-1 text-sm"
+            />
+          </form>
 
           {isLogged ? (
             <>

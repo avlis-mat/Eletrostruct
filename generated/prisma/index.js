@@ -209,7 +209,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/home/vitor/Eletrostruct/generated/prisma",
+      "value": "/home/henri/eletrostruct4/Eletrostruct/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -223,7 +223,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/home/vitor/Eletrostruct/prisma/schema.prisma",
+    "sourceFilePath": "/home/henri/eletrostruct4/Eletrostruct/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
