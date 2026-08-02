@@ -3,8 +3,21 @@ import { Footer } from "~/_components/Footer";
 import { AddToCartButton } from "~/_components/AddToCartButton";
 import { db } from "~/server/db";
 
-export default async function CatalogoPage() {
+export default async function CatalogoPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string }>;
+}) {
+  const { q } = await searchParams;
   const produtos = await db.produto.findMany({
+    where: q
+      ? {
+          OR: [
+            { nome: { contains: q } },
+            { descricao: { contains: q } },
+          ],
+        }
+      : undefined,
     orderBy: { nome: "asc" },
     include: { categorias: true },
   });
