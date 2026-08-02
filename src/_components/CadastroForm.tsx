@@ -1,11 +1,25 @@
+// src/_components/CadastroForm.tsx
 "use client";
+
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 import { api } from "~/trpc/react";
+
 export function CadastroForm() {
   const router = useRouter();
+
   const criar = api.user.criar.useMutation({
-    onSuccess: () => router.push("/login"),
+    onSuccess: async (_data, variables) => {
+      await signIn("credentials", {
+        email: variables.email,
+        password: variables.senha,
+        redirect: false,
+      });
+      router.push("/");
+      router.refresh();
+    },
   });
+
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
@@ -17,6 +31,7 @@ export function CadastroForm() {
       senha: String(form.get("senha")),
     });
   }
+
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
       <div className="flex flex-col gap-1">

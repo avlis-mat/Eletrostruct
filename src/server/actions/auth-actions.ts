@@ -26,22 +26,35 @@ export async function cadastrarAction(formData: FormData) {
   const senhaHash = await bcrypt.hash(password, 10);
   await db.user.create({ data: { email, senha: senhaHash, name: nome } });
 
-  await signIn("credentials", { email, password, redirectTo: "/" });
+  try {
+    await signIn("credentials", { email, password, redirectTo: "/" });
+  } catch (error) {
+    if (error instanceof AuthError) {
+      return {
+        error:
+          "Conta criada, mas não foi possível entrar automaticamente. Tenta fazer login.",
+      };
+    }
+    throw error; // deixa passar o redirect de sucesso (NEXT_REDIRECT)
+  }
 }
 
-export async function credentialsSignInAction(formData: FormData) {
+export async function credentialsSignInAction(
+  _prevState: { error?: string } | undefined,
+  formData: FormData,
+) {
   const email = formData.get("email")?.toString().trim();
   const password = formData.get("password")?.toString();
 
   if (!email || !password) {
-    throw new Error("Preencha e-mail e senha.");
+    return { error: "Preencha e-mail e senha." };
   }
 
   try {
     await signIn("credentials", { email, password, redirectTo: "/" });
   } catch (error) {
     if (error instanceof AuthError) {
-      throw new Error("Credenciais inválidas.");
+      return { error: "Credenciais inválidas." };
     }
     throw error;
   }

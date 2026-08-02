@@ -58,13 +58,27 @@ export const authConfig = {
           return null;
         }
 
+        if (user.bloqueado) return null;
+
         const password = credentials.password as string;
         const isValidPassword = user.senha.startsWith("$2")
           ? await bcrypt.compare(password, user.senha)
           : user.senha === password;
 
         if (!isValidPassword) {
+          const tentativas = user.tentativasLogin + 1;
+          await db.user.update({
+            where: { id: user.id },
+            data: { tentativasLogin: tentativas, bloqueado: tentativas >= 3 },
+          });
           return null;
+        }
+
+        if (user.tentativasLogin > 0) {
+          await db.user.update({
+            where: { id: user.id },
+            data: { tentativasLogin: 0 },
+          });
         }
 
         return user;

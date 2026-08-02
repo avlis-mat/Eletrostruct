@@ -4,6 +4,7 @@ import { Footer } from "~/_components/Footer";
 import { GoogleSignInButton } from "~/_components/GoogleSignInButton";
 import { auth } from "~/server/auth";
 import { credentialsSignInAction } from "~/server/actions/auth-actions";
+import { LoginForm } from "~/_components/LoginForm";
 
 export default async function LoginPage() {
   const session = await auth();
@@ -24,42 +25,7 @@ export default async function LoginPage() {
             Acesse sua conta Eletrostruct
           </p>
 
-          <form action={credentialsSignInAction} className="mb-6 space-y-3">
-            <div className="flex flex-col gap-1">
-              <label htmlFor="email" className="text-sm font-medium">
-                Email
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                placeholder="seu@email.com"
-                required
-                className="border-border bg-background text-foreground rounded-lg border px-3 py-2 text-sm"
-              />
-            </div>
-
-            <div className="flex flex-col gap-1">
-              <label htmlFor="password" className="text-sm font-medium">
-                Senha
-              </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                placeholder="Sua senha"
-                required
-                className="border-border bg-background text-foreground rounded-lg border px-3 py-2 text-sm"
-              />
-            </div>
-
-            <button
-              type="submit"
-              className="bg-primary text-primary-foreground hover:bg-primary/90 w-full rounded-lg px-4 py-2 text-sm font-medium transition-colors"
-            >
-              Entrar
-            </button>
-          </form>
+          <LoginForm />
 
           <div className="border-border/40 mb-4 border-t pt-4">
             <p className="text-muted-foreground mb-3 text-center text-sm">

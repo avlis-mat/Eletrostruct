@@ -57,19 +57,21 @@ model Session {
 
 // Domínio unificado com next-auth
 model User {
-    id            String         @id @default(cuid())
-    name          String?
-    email         String?        @unique
-    emailVerified DateTime?
-    image         String?
-    endereco      String?
-    cpf           String?
-    senha         String?
-    accounts      Account[]
-    sessions      Session[]
-    posts         Post[]
-    pedidos       Pedido[]
-    itensCarrinho ItemCarrinho[]
+    id              String         @id @default(cuid())
+    name            String?
+    email           String?        @unique
+    emailVerified   DateTime?
+    image           String?
+    endereco        String?
+    cpf             String?
+    senha           String?
+    tentativasLogin Int            @default(0)
+    bloqueado       Boolean        @default(false)
+    accounts        Account[]
+    sessions        Session[]
+    posts           Post[]
+    pedidos         Pedido[]
+    itensCarrinho   ItemCarrinho[]
 }
 
 model VerificationToken {
