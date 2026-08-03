@@ -97,7 +97,7 @@ export async function Navbar() {
                 <button
                   type="submit"
                   aria-label="Sair"
-                  className="text-muted-foreground hover:text-primary transition-colors"
+                  className="cursor-pointer text-muted-foreground hover:text-primary transition-colors"
                 >
                   <LogOut className="h-5 w-5" />
                 </button>
