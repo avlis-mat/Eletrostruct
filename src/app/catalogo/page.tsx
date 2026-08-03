@@ -2,6 +2,7 @@ import { Navbar } from "~/_components/Navbar";
 import { Footer } from "~/_components/Footer";
 import { AddToCartButton } from "~/_components/AddToCartButton";
 import { db } from "~/server/db";
+import Link from "next/link";
 
 export default async function CatalogoPage({
   searchParams,
@@ -37,7 +38,9 @@ export default async function CatalogoPage({
               alt={produto.nome}
               className="h-40 w-full rounded object-cover"
             />
-            <h2 className="text-foreground font-medium">{produto.nome}</h2>
+            <Link href={`/produto/${produto.id}`}>
+              <h2 className="text-foreground font-medium">{produto.nome}</h2>
+            </Link>
             <p className="text-muted-foreground text-sm">
               R$ {produto.preco.toFixed(2)}
             </p>
