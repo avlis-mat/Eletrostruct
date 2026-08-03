@@ -24,7 +24,7 @@ export function AddToCartButton({ produtoId }: { produtoId: number }) {
     <button
       onClick={() => adicionar.mutate({ produtoId })}
       disabled={adicionar.isPending}
-      className="rounded bg-green-600 px-4 py-2 text-white hover:bg-green-700 disabled:opacity-50"
+      className="cursor-pointer rounded bg-green-600 px-4 py-2 text-white hover:bg-green-700 disabled:opacity-50"
     >
       {adicionar.isPending ? "Adicionando..." : "Adicionar"}
     </button>

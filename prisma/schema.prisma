@@ -72,6 +72,7 @@ model User {
     posts           Post[]
     pedidos         Pedido[]
     itensCarrinho   ItemCarrinho[]
+    comentarios     Comentario[]
     role            Role           @default(USER)
 }
 
@@ -140,6 +141,20 @@ model Produto {
 
     itensPedido   ItemPedido[]
     itensCarrinho ItemCarrinho[]
+
+    comentarios   Comentario[]
+}
+
+model Comentario {
+  id        Int      @id @default(autoincrement())
+  texto     String
+  criadoEm  DateTime @default(now())
+
+  usuarioId String
+  usuario   User     @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+
+  produtoId Int
+  produto   Produto  @relation(fields: [produtoId], references: [id], onDelete: Cascade)
 }
 
 enum Role {

@@ -35,7 +35,7 @@ export function CadastroForm() {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
       <div className="flex flex-col gap-1">
-        <label htmlFor="name">Nome</label>
+        <label htmlFor="name">Nome completo</label>
         <input
           id="name"
           name="name"
@@ -45,7 +45,7 @@ export function CadastroForm() {
         />
       </div>
       <div className="flex flex-col gap-1">
-        <label htmlFor="endereco">Endereço</label>
+        <label htmlFor="endereco">Endereço atual</label>
         <input
           id="endereco"
           name="endereco"
@@ -86,7 +86,10 @@ export function CadastroForm() {
           className="rounded border px-3 py-2"
         />
       </div>
-      <button type="submit" disabled={criar.isPending}>
+      <button type="submit"
+        disabled={criar.isPending}
+        className="cursor-pointer self-center rounded bg-green-600 px-4 py-2 text-white hover:bg-green-700 disabled:opacity-50"
+      >
         {criar.isPending ? "Cadastrando..." : "Cadastrar"}
       </button>
       {criar.error && <p className="text-red-500">{criar.error.message}</p>}
