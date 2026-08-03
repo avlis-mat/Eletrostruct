@@ -1,29 +1,74 @@
-# Create T3 App
+# ⚡ Eletrostruct
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+Projeto de e-commerce moderno desenvolvido como projeto prático para a Empresa Júnior: **Struct**.
 
-## What's next? How do I make an app with this?
+---
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+## 🚀 Tecnologias Utilizadas
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+- **Framework:** [Next.js](https://nextjs.org/) (React)
+- **Estilização:** [Tailwind CSS](https://tailwindcss.com/)
+- **Linguagem:** [TypeScript](https://www.typescriptlang.org/)
+- **Gerenciador de Pacotes:** [pnpm](https://pnpm.io/)
+- **Banco de Dados & ORM:** [SQLite](https://www.sqlite.org/) + [Prisma ORM](https://www.prisma.io/)
+- **Autenticação:** [Auth.js / NextAuth.js](https://authjs.dev/) (Google Provider)
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+---
 
-## Learn More
+## 📦 Pré-requisitos
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+Antes de começar, garante que você possui instalado em sua máquina:
+- [Node.js](https://nodejs.org/) 
+- [pnpm](https://pnpm.io/installation)
+- [Git](https://git-scm.com/)
+---
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+## ⚙️ Passo a Passo para Instalação e Execução
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+### 1. Clonar o repositório
+Abra o terminal no diretório desejado e faça o clone do projeto:
+```bash
+git clone https://github.com/avlis-mat/Eletrostruct.git
+cd eletrostruct
+``` 
 
-## How do I deploy this?
+### 2. Instalar as dependências
+Execute o pnpm para baixar todas as dependências
+```bash
+pnpm install
+``` 
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+### 3. Configurar as Variáveis de Ambiente (.env)
+Crie um arquivo .env na raiz do projeto com o seguinte conteúdo de exemplo:
+```bash
+# Conexão com o Banco de Dados SQLite
+DATABASE_URL="file:./dev.db"
+
+# Segredo do Auth.js (Gere rodando: npx auth secret)
+AUTH_SECRET="sua_chave_secreta_aqui"
+
+# Credenciais de Autenticação do Google Cloud Console
+AUTH_GOOGLE_ID="seu_client_id_do_google"
+AUTH_GOOGLE_SECRET="seu_client_secret_do_google"
+``` 
+
+### 4. Configurar e Sincronizar o Banco de Dados
+Com o arquivo .env configurado, crie as tabelas no SQLite local:
+```bash
+pnpm db:push
+``` 
+
+
+### 5. Semear o Banco de Dados (Seed)
+Para popular o banco com dados
+```bash
+pnpm db:seed
+``` 
+
+### 6. Executar 
+Inicie a aplicação localmente:
+```bash
+pnpm dev
+
+# Abra o seu navegador e acesse: http://localhost:3000
+``` 
