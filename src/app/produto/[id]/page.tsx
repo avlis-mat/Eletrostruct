@@ -28,7 +28,7 @@ export default async function ProdutoPage({
     <main className="min-h-screen">
       <Navbar />
       <div className="mx-auto max-w-3xl px-4 py-16">
-        <img src={produto.imagemUrl ?? ""} alt={produto.nome} />
+        <img src={produto.imagemUrl ?? ""} alt={produto.nome} className="mb-4 h-64 w-full max-w-md rounded object-cover" />
         <h1>{produto.nome}</h1>
         <p>{produto.descricao}</p>
         <p>R$ {produto.preco.toFixed(2)}</p>
